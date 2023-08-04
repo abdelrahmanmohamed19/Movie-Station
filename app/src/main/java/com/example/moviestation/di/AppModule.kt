@@ -1,8 +1,10 @@
 package com.example.moviestation.di
 
 import com.example.moviestation.data.api.ApiService
+import com.example.moviestation.data.repositories.MovieRepositorey
 import com.example.moviestation.data.repositories.SearchRepositorey
 import com.example.moviestation.data.repositories.TrendingsRepositorey
+import com.example.moviestation.data.repositories.TvRepositorey
 import com.example.moviestation.model.Constants
 import dagger.Module
 import dagger.Provides
@@ -46,5 +48,15 @@ object AppModule {
         return SearchRepositorey(provideApiService(), provideApiKey())
     }
 
+    @Provides
+    @Singleton
+    fun ProvideMovieRepositorey() : MovieRepositorey{
+        return MovieRepositorey(provideApiService(), provideApiKey())
+    }
 
+    @Provides
+    @Singleton
+    fun provideTvRepositorey() : TvRepositorey {
+        return TvRepositorey(provideApiService(), provideApiKey())
+    }
 }

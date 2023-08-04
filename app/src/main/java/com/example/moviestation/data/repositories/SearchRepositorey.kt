@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class SearchRepositorey @Inject constructor(val api : ApiService , val apiKey : String) {
+class SearchRepositorey @Inject constructor(private val api : ApiService ,private val apiKey : String) {
 
     suspend fun getSearchedItem(item : String) : StateFlow<List<TrendingMovies>> {
 

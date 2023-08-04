@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviestation.adapter.TrendingMoviesAdapter
 import com.example.moviestation.databinding.FragmentSearchBinding
 import com.example.moviestation.viewModel.SearchViewModel
@@ -28,14 +29,14 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding?.SearchRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {
             viewModel.searchedItem.collect{
                 myAdapter.setData(it)
             }
         }
 
-        binding?.SearcheRecyclerView?.adapter = myAdapter
+        binding?.SearchRecyclerView?.adapter = myAdapter
     }
 
     override fun onDestroy() {

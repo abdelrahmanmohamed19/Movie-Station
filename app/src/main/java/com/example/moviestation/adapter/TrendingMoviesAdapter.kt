@@ -27,6 +27,7 @@ class TrendingMoviesAdapter : RecyclerView.Adapter<TrendingMoviesAdapter.viewHol
 
     fun setData (list: List<TrendingMovies>) {
         this.dataList = list
+        notifyDataSetChanged()
     }
 
     class viewHolder (viewItem : View) : RecyclerView.ViewHolder(viewItem) {

@@ -22,13 +22,36 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.example.moviestation.ui.MoviesFragment"
-        android:label="MoviesFragment" />
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_filmFragment"
+            app:destination="@id/filmFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tvFragment"
         android:name="com.example.moviestation.ui.TvFragment"
-        android:label="TvFragment" />
+        android:label="TvFragment" >
+        <action
+            android:id="@+id/action_tvFragment_to_tvListFragment"
+            app:destination="@id/tvListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.moviestation.ui.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/filmFragment"
+        android:name="com.example.moviestation.ui.FilmFragment"
+        android:label="fragment_film"
+        tools:layout="@layout/fragment_film" >
+    </fragment>
+    <fragment
+        android:id="@+id/tvListFragment"
+        android:name="com.example.moviestation.ui.TvListFragment"
+        android:label="fragment_tv_list"
+        tools:layout="@layout/fragment_tv_list" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
