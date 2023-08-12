@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
-            tools:context=".ui.HomeFragment">
+            tools:context=".presentation.ui.HomeFragment">
 
             <TextView
                 android:id="@+id/title"
@@ -26,6 +26,7 @@
                 android:text="Trending Movies"
                 android:textColor="@color/white"
                 android:fontFamily="@font/bebas_neue"
+                android:paddingStart="@dimen/_4sdp"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/_8sdp"
                 android:paddingRight="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +49,7 @@
                 android:fontFamily="@font/bebas_neue"
                 android:text="Trending TV"
                 android:textColor="@color/white"
+                android:paddingStart="@dimen/_4sdp"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintStart_toStartOf="@id/title"
                 android:layout_marginTop="@dimen/_16sdp"
@@ -60,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/_8sdp"
                 android:paddingRight="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="Trending People"
                 android:textColor="@color/white"
+                android:paddingStart="@dimen/_4sdp"
                 android:fontFamily="@font/bebas_neue"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintStart_toStartOf="@id/title"
@@ -84,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/_8sdp"
                 android:paddingRight="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

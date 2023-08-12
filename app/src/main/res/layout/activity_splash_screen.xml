@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.SplashActivity">
+    tools:context=".presentation.ui.SplashActivity">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/yellow"
         android:gravity="center"
-        android:text="Movie Station"
+        android:src="@drawable/logo"
         android:textColor="@color/black"
         android:textSize="@dimen/_40ssp"
         app:layout_constraintBottom_toBottomOf="parent"

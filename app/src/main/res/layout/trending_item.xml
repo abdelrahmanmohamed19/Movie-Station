@@ -14,7 +14,7 @@
             app:cardCornerRadius="@dimen/_10sdp"
             android:elevation="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_4sdp">
+            android:layout_marginStart="@dimen/_8sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                     android:id="@+id/poster"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_110sdp"
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/logo"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
