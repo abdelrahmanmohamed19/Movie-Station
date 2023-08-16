@@ -1,4 +1,4 @@
-package com.moviestation.moviestation.presentation.ui
+package com.moviestation.moviestation.presentation.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,12 +11,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviestation.databinding.FragmentHomeBinding
-import com.moviestation.moviestation.data.model.Movies
-import com.moviestation.moviestation.data.model.People
-import com.moviestation.moviestation.data.model.Tv
-import com.moviestation.moviestation.presentation.data.mappers.Trending
-import com.moviestation.moviestation.presentation.adapters.MainAdapter
-import com.moviestation.moviestation.presentation.viewmodels.HomeViewModel
+import com.moviestation.moviestation.data.remote.dto.Movies
+import com.moviestation.moviestation.data.remote.dto.People
+import com.moviestation.moviestation.data.remote.dto.Tv
+import com.moviestation.moviestation.domain.model.Trending
+import com.moviestation.moviestation.presentation.adapter.MainAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

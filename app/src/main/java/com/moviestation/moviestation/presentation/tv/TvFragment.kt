@@ -1,4 +1,4 @@
-package com.moviestation.moviestation.presentation.ui
+package com.moviestation.moviestation.presentation.tv
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,34 +9,34 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviestation.databinding.FragmentMoviesBinding
-import com.moviestation.moviestation.presentation.adapters.CategoriesAdapter
-import com.moviestation.moviestation.presentation.viewmodels.MovieViewModel
+import com.example.moviestation.databinding.FragmentTvBinding
+import com.moviestation.moviestation.presentation.adapter.CategoriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class TvFragment : Fragment() {
 
-    private var _binding : FragmentMoviesBinding? = null
+    private var _binding : FragmentTvBinding? = null
     val binding get() =_binding
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel by viewModels<TvViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentMoviesBinding.inflate(layoutInflater)
+        _binding = FragmentTvBinding.inflate(layoutInflater)
         return binding?.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myAdapter = CategoriesAdapter(findNavController(),"movies")
-        binding?.MovieRecyclerview?.layoutManager = LinearLayoutManager(requireContext())
+        val myAdapter = CategoriesAdapter(findNavController(),"tv")
+        binding?.TvRecyclerview?.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {
-            viewModel.CategorieList.collect{
+            viewModel.categoriesList.collect{
                 myAdapter.setData(it)
             }
         }
-        binding?.MovieRecyclerview?.adapter = myAdapter
+        binding?.TvRecyclerview?.adapter = myAdapter
 
     }
 

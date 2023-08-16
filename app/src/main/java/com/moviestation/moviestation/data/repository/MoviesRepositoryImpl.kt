@@ -1,28 +1,28 @@
-package com.moviestation.moviestation.data.repositories
+package com.moviestation.moviestation.data.repository
 
-import android.util.Log
-import com.example.moviestation.domain.repositories.MoviesRepositorey
-import com.moviestation.moviestation.data.api.ApiService
-import com.moviestation.moviestation.data.model.Categories
-import com.moviestation.moviestation.data.model.Movies
-import com.moviestation.moviestation.data.model.Tv
+import com.moviestation.moviestation.domain.repository.MoviesRepository
+import com.moviestation.moviestation.data.remote.ApiService
+import com.moviestation.moviestation.data.remote.dto.Categories
+import com.moviestation.moviestation.data.remote.dto.Movies
+import com.moviestation.moviestation.data.remote.dto.Tv
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class MoviesRepositoreyImpl @Inject constructor(private val api : ApiService, private val apiKey : String ) : MoviesRepositorey{
+class MoviesRepositoryImpl @Inject constructor(private val api : ApiService, private val apiKey : String ) :
+    MoviesRepository {
 
     override suspend fun getMovieCategories() : StateFlow<List<Categories>>{
 
-        val categorieList = MutableStateFlow(emptyList<Categories>())
+        val categoriesList = MutableStateFlow(emptyList<Categories>())
 
         val response = api.getMoviesCategorie(apiKey)
 
         if (response.isSuccessful){
             val responseBody = response.body()?.categoriesList
-            categorieList.value = responseBody !!
+            categoriesList.value = responseBody !!
         }
-        return categorieList
+        return categoriesList
     }
 
 
@@ -34,17 +34,16 @@ class MoviesRepositoreyImpl @Inject constructor(private val api : ApiService, pr
             val responseBody = response.body()?.trendingMovies
             categoriesList.value = responseBody !!
         }
-        Log.i("Repoooo",categoriesList.value.toString())
         return categoriesList
     }
 
     override suspend fun getTvCategorieList(id : Int) : StateFlow<List<Tv>>{
-        val categorieList = MutableStateFlow(emptyList<Tv>())
+        val categoriesList = MutableStateFlow(emptyList<Tv>())
         val response = api.getTvCategorieList(apiKey,id)
         if (response.isSuccessful){
             val responseBody = response.body()?.trendingTv
-            categorieList.value = responseBody !!
+            categoriesList.value = responseBody !!
         }
-        return categorieList
+        return categoriesList
     }
 }

@@ -1,10 +1,9 @@
-package com.moviestation.moviestation.presentation.viewmodels
+package com.moviestation.moviestation.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.data.repositories.SearchRepositoreyImpl
-import com.moviestation.moviestation.data.model.Tv
-import com.moviestation.moviestation.domain.usecase.SearchUseCase
+import com.moviestation.moviestation.data.remote.dto.Tv
+import com.moviestation.moviestation.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor (private val useCase: SearchUseCase): ViewModel() {
+class SearchViewModel @Inject constructor (private val searchUseCase: SearchUseCase): ViewModel() {
 
     private val _searchedItem = MutableStateFlow(emptyList<Tv>())
     val searchedItem : StateFlow<List<Tv>> = _searchedItem
@@ -20,7 +19,7 @@ class SearchViewModel @Inject constructor (private val useCase: SearchUseCase): 
 
     fun getSearchedItem(item : String) {
         viewModelScope.launch {
-            useCase.getSearchedItem(item).collect{
+            searchUseCase.getSearchedItem(item).collect{
                 _searchedItem.value = it
             }
         }

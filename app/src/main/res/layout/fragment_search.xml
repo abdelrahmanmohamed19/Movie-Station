@@ -6,7 +6,7 @@
     <data>
           <variable
               name="viewModel"
-              type="com.moviestation.moviestation.presentation.viewmodels.SearchViewModel" />
+              type="com.moviestation.moviestation.presentation.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,10 +49,8 @@
                 app:layout_constraintTop_toBottomOf="@id/searchButton"
                 android:layout_marginTop="@dimen/_16sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
+                app:spanCount="3"
                 android:paddingBottom="@dimen/_8sdp"
-                android:paddingStart="@dimen/_14sdp"
-                android:paddingEnd="@dimen/_12sdp"
                 tools:listitem="@layout/trending_item" />
 
 

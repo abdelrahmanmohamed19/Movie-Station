@@ -1,4 +1,4 @@
-package com.moviestation.moviestation.presentation.adapters
+package com.moviestation.moviestation.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviestation.R
 import com.example.moviestation.databinding.CategorieItemBinding
-import com.moviestation.moviestation.data.model.Categories
-import com.moviestation.moviestation.presentation.ui.MoviesFragmentDirections
-import com.moviestation.moviestation.presentation.ui.TvFragmentDirections
+import com.moviestation.moviestation.data.remote.dto.Categories
+import com.moviestation.moviestation.presentation.movies.MoviesFragmentDirections
+import com.moviestation.moviestation.presentation.tv.TvFragmentDirections
 
 class CategoriesAdapter(val navController: NavController , val check : String): RecyclerView.Adapter<CategoriesAdapter.viewHolder>() {
     var dataList = emptyList<Categories>()

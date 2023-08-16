@@ -1,9 +1,9 @@
-package com.moviestation.moviestation.data.api
+package com.moviestation.moviestation.data.remote
 
-import com.moviestation.moviestation.data.model.CategoriesResponse
-import com.moviestation.moviestation.data.model.TrendingMoviesResponse
-import com.moviestation.moviestation.data.model.TrendingPeopleResponse
-import com.moviestation.moviestation.data.model.TrendingTvResponse
+import com.moviestation.moviestation.data.remote.dto.CategoriesResponse
+import com.moviestation.moviestation.data.remote.dto.TrendingMoviesResponse
+import com.moviestation.moviestation.data.remote.dto.TrendingPeopleResponse
+import com.moviestation.moviestation.data.remote.dto.TrendingTvResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

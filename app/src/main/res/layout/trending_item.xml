@@ -9,8 +9,8 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_140sdp"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_172sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             android:elevation="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_8sdp"
@@ -24,7 +24,7 @@
                 <ImageView
                     android:id="@+id/poster"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_110sdp"
+                    android:layout_height="@dimen/_135sdp"
                     android:src="@drawable/logo"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -35,11 +35,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="John Wick 4"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/bebas_neue"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/poster"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:paddingBottom="@dimen/_4sdp"

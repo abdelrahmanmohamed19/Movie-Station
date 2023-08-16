@@ -1,16 +1,17 @@
-package com.moviestation.moviestation.data.repositories
+package com.moviestation.moviestation.data.repository
 
-import com.moviestation.moviestation.data.api.ApiService
-import com.moviestation.moviestation.data.model.Movies
-import com.moviestation.moviestation.data.model.People
-import com.moviestation.moviestation.data.model.Tv
-import com.example.moviestation.domain.repositories.HomeRepositorey
+import com.moviestation.moviestation.data.remote.ApiService
+import com.moviestation.moviestation.data.remote.dto.Movies
+import com.moviestation.moviestation.data.remote.dto.People
+import com.moviestation.moviestation.data.remote.dto.Tv
+import com.moviestation.moviestation.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 
-class HomeRepositoreyImpl @Inject constructor(private val api : ApiService, private val apiKey : String) : HomeRepositorey {
+class HomeRepositoryImpl @Inject constructor(private val api : ApiService, private val apiKey : String) :
+    HomeRepository {
 
     override suspend fun getTrendingMovies () : StateFlow<List<Movies>> {
 
