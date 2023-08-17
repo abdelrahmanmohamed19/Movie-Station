@@ -1,0 +1,93 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:background="@color/black">
+
+         <com.google.android.material.card.MaterialCardView
+             android:id="@+id/card"
+             android:layout_width="wrap_content"
+             android:layout_height="@dimen/_200sdp"
+             app:cardCornerRadius="@dimen/_10sdp"
+             android:elevation="@dimen/_20sdp"
+             android:layout_marginStart="@dimen/_4sdp"
+             android:layout_marginEnd="@dimen/_4sdp"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginTop="@dimen/_16sdp">
+
+                 <ImageView
+                     android:id="@+id/poster"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_launcher_background"
+                     app:layout_constraintTop_toTopOf="parent"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintEnd_toEndOf="parent" />
+         </com.google.android.material.card.MaterialCardView>
+
+         <TextView
+             android:id="@+id/name"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:textStyle="bold"
+             android:fontFamily="@font/bebas_neue"
+             tools:text="John Wick"
+             android:textColor="@color/white"
+             android:textSize="@dimen/_30ssp"
+             app:layout_constraintTop_toBottomOf="@id/card"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toStartOf="@id/vote"
+             android:layout_marginTop="@dimen/_24sdp"
+             android:layout_marginEnd="@dimen/_8sdp"
+             android:layout_marginStart="@dimen/_8sdp"/>
+
+         <TextView
+             android:id="@+id/vote"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textStyle="bold"
+             android:fontFamily="@font/bebas_neue"
+             tools:text="8.0"
+             android:maxLength="3"
+             android:drawableStart="@drawable/baseline_star_24"
+             android:textColor="@color/white"
+             android:textSize="@dimen/_30ssp"
+             app:layout_constraintTop_toBottomOf="@id/card"
+             app:layout_constraintEnd_toEndOf="parent"
+             android:layout_marginTop="@dimen/_24sdp"
+             android:layout_marginEnd="@dimen/_16sdp"/>
+
+
+         <TextView
+             android:id="@+id/overView"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             tools:text="Watch Carly, Sam, and Freddie, as they try to balance their everyday 8th grade lives with their newfound fame managing and starring in the most awesome show on the web.k"
+             android:textColor="@color/white"
+             android:textSize="@dimen/_15ssp"
+             app:layout_constraintTop_toBottomOf="@id/name"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             android:layout_marginTop="@dimen/_16sdp"
+             android:paddingStart="@dimen/_4sdp"
+             android:paddingEnd="@dimen/_4sdp"
+             android:layout_marginStart="@dimen/_8sdp"
+             android:layout_marginEnd="@dimen/_4sdp"/>
+
+
+
+
+
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
