@@ -13,13 +13,13 @@ import com.example.moviestation.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
 
     private var _binding : FragmentMainBinding? = null
-    val binding get() = _binding
+    val binding get() = _binding!!
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainBinding .inflate(layoutInflater)
 
-        return(binding?.root)
+        return(binding.root)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,16 +34,16 @@ class MainFragment : Fragment() {
     }
 
     private fun buttonsClick() {
-        binding?.searchButton?.setOnClickListener {
+        binding.searchButton.setOnClickListener {
             requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.searchFragment)
         }
-        binding?.homeButton?.setOnClickListener {
+        binding.homeButton.setOnClickListener {
             requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.homeFragment)
         }
-        binding?.MovieButton?.setOnClickListener {
+        binding.MovieButton.setOnClickListener {
             requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.moviesFragment)
         }
-        binding?.tvButton?.setOnClickListener {
+        binding.tvButton.setOnClickListener {
             requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.tvFragment)
         }
     }

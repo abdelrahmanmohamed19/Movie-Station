@@ -23,45 +23,46 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
-    private val binding get() = _binding
+    private val binding get() = _binding !!
     private val viewModel by viewModels<HomeViewModel>()
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
+    private val moviesAdapter by lazy { MainAdapter(navController = navController, name = "home") }
+    private val tvAdapter by lazy { MainAdapter(navController = navController, name = "home") }
+    private val peopleAdapter by lazy { MainAdapter(navController = navController, name = "home") }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         navController = findNavController()
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.MoviesRecyclerview?.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-        binding?.TvRecyclerview?.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-        binding?.PeopleRecyclerview?.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.MoviesRecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.TvRecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.PeopleRecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
 
        lifecycleScope.launch {
            viewModel.movieList.collect{
-            val myAdapter = MainAdapter(navController,"home")
-            myAdapter.setList(mapTrendingMovieToTrending(it))
-               binding?.MoviesRecyclerview?.adapter=myAdapter
+            moviesAdapter.submitList(mapTrendingMovieToTrending(it))
+               binding.MoviesRecyclerview.adapter=moviesAdapter
            }
        }
 
         lifecycleScope.launch {
             viewModel.tvList.collect{
-                val myAdapter = MainAdapter(navController,"home")
-                myAdapter.setList(mapTrendingTvToTrending(it))
-                binding?.TvRecyclerview?.adapter=myAdapter
+                tvAdapter.submitList(mapTrendingTvToTrending(it))
+                binding.TvRecyclerview.adapter=tvAdapter
             }
         }
 
 
         lifecycleScope.launch {
             viewModel.peopleList.collect{
-                val myAdapter = MainAdapter(navController,"home")
-                myAdapter.setList(mapTrendingPeopleToTrending(it))
-                binding?.PeopleRecyclerview?.adapter=myAdapter
+                peopleAdapter.submitList(mapTrendingPeopleToTrending(it))
+                binding.PeopleRecyclerview.adapter=peopleAdapter
             }
         }
 

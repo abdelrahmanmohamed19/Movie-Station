@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviestation.databinding.FragmentMoviesBinding
@@ -18,24 +19,27 @@ import kotlinx.coroutines.launch
 class MoviesFragment : Fragment() {
 
     private var _binding : FragmentMoviesBinding? = null
-    val binding get() =_binding
+    val binding get() =_binding !!
     private val viewModel by viewModels<MovieViewModel>()
+    private lateinit var navController : NavController
+    private val categoriesAdapter by lazy { CategoriesAdapter(navController,"movies") }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMoviesBinding.inflate(layoutInflater)
-        return binding?.root
+        navController = findNavController()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myAdapter = CategoriesAdapter(findNavController(),"movies")
-        binding?.MovieRecyclerview?.layoutManager = LinearLayoutManager(requireContext())
+        binding.MovieRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {
             viewModel.categoriesList.collect{
-                myAdapter.setData(it)
+                categoriesAdapter.submitList(it)
             }
         }
-        binding?.MovieRecyclerview?.adapter = myAdapter
+        binding.MovieRecyclerview.adapter = categoriesAdapter
 
     }
 

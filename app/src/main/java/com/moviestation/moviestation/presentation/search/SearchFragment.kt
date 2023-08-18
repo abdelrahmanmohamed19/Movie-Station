@@ -22,26 +22,27 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment() {
 
     private var _binding : FragmentSearchBinding? = null
-    private val binding get() = _binding
+    private val binding get() = _binding !!
     private val viewModel by viewModels<SearchViewModel>()
     private lateinit var navController: NavController
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val mainAdapter by lazy { MainAdapter(navController,"search") }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
         navController = findNavController()
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.SearchTextField?.addTextChangedListener{text ->
+        binding.SearchTextField.addTextChangedListener{text ->
                 lifecycleScope.launch {
                     delay(1000)
                     viewModel.getSearchedItem(text.toString())
                     viewModel.searchedItem.collect{
-                        val myAdapter = MainAdapter(navController,"search")
-                        myAdapter.setList(mapSearchItemToTrending(it))
-                        binding?.SearchRecyclerView?.adapter=myAdapter
+                        mainAdapter.submitList(mapSearchItemToTrending(it))
+                        binding.SearchRecyclerView.adapter=mainAdapter
                     }
                 }
             }

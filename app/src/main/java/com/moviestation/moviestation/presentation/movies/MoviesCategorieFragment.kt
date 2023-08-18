@@ -21,24 +21,25 @@ import kotlinx.coroutines.launch
 class MoviesCategorieFragment : Fragment() {
 
     private var _binding : FragmentSelectedCategorieBinding? =null
-    val binding get()= _binding
+    val binding get()= _binding !!
     val viewModel by viewModels<MovieViewModel>()
     private val args by navArgs<MoviesCategorieFragmentArgs>()
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
+    private val mainAdapter by lazy { MainAdapter(navController,"movie") }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectedCategorieBinding.inflate(layoutInflater)
         navController = findNavController()
-        return binding?.root
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getMoviesCategoriesList(args.ID.toInt())
         lifecycleScope.launch {
             viewModel.movieCategoriesList.collect{
-                val myAdapter = MainAdapter(navController,"movie")
-                myAdapter.setList(mapMovieToTrending(it))
-                binding?.RecyclerView?.adapter = myAdapter
+                mainAdapter.submitList(mapMovieToTrending(it))
+                binding.RecyclerView.adapter = mainAdapter
             }
         }
     }

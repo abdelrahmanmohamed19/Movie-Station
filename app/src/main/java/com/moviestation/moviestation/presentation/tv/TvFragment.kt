@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviestation.databinding.FragmentTvBinding
@@ -18,25 +19,28 @@ import kotlinx.coroutines.launch
 class TvFragment : Fragment() {
 
     private var _binding : FragmentTvBinding? = null
-    val binding get() =_binding
-    private val viewModel by viewModels<TvViewModel>()
+    val binding get() =_binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val viewModel by viewModels<TvViewModel>()
+    private lateinit var navController: NavController
+    private val categoriesAdapter by lazy { CategoriesAdapter(navController,"tv") }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTvBinding.inflate(layoutInflater)
-        return binding?.root
+        navController = findNavController()
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myAdapter = CategoriesAdapter(findNavController(),"tv")
-        binding?.TvRecyclerview?.layoutManager = LinearLayoutManager(requireContext())
+        binding.TvRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {
             viewModel.categoriesList.collect{
-                myAdapter.setData(it)
+                categoriesAdapter.submitList(it)
             }
         }
-        binding?.TvRecyclerview?.adapter = myAdapter
+        binding.TvRecyclerview.adapter = categoriesAdapter
 
     }
 
