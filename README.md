@@ -39,3 +39,12 @@ Movie Station is an app for presenting movies and TV shows, including categoriza
 📚 Shared Preferences
 <br>
 📚 Flows
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/959c5c98-5643-4742-9b51-7bd3e31c72d4" width="200" hspace="10" vspace="10">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/d1d9f4ca-9782-477b-8db2-74786e21f494" width="200" hspace="10" vspace="10">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/004f3b5d-024a-4aac-a7a9-fdcead5f8baf" width="200" hspace="10" vspace="10">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/6e800e8d-acfb-4b7e-9bda-3f2a808bb2f6" width="200" hspace="10" vspace="10">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/fc0d2c65-b058-44d1-a70d-76882363a6aa" width="200" hspace="10" vspace="10">
+  <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/aa797ef1-1e56-4d13-9da0-7e03f846a264" width="200" hspace="10" vspace="10">
+</div>
