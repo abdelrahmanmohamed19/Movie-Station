@@ -40,6 +40,9 @@ Movie Station is an app for presenting movies and TV shows, including categoriza
 <br>
 📚 Flows
 
+
+## $\color{#4203c9}{📷 Screenshots}$
+
 <div style="display: flex; justify-content: center;">
   <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/959c5c98-5643-4742-9b51-7bd3e31c72d4" width="200" hspace="10" vspace="10">
   <img src="https://github.com/abdelrahmanmohamed19/Movie-Station/assets/61879243/d1d9f4ca-9782-477b-8db2-74786e21f494" width="200" hspace="10" vspace="10">
