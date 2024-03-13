@@ -13,12 +13,10 @@ import com.example.moviestation.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
 
     private var _binding : FragmentMainBinding? = null
-    val binding get() = _binding!!
-
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainBinding .inflate(layoutInflater)
-
         return(binding.root)
     }
 
@@ -27,34 +25,26 @@ class MainFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                requireActivity().findNavController(R.id.myFragmentContanier2).popBackStack()
+                requireActivity().findNavController(R.id.MainFragmentContainerView).popBackStack()
             }
         })
-        buttonsClick()
-    }
 
-    private fun buttonsClick() {
         binding.searchButton.setOnClickListener {
-            requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.searchFragment)
+            requireActivity().findNavController(R.id.MainFragmentContainerView).navigate(R.id.searchFragment)
         }
-        binding.homeButton.setOnClickListener {
-            requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.homeFragment)
-        }
-        binding.MovieButton.setOnClickListener {
-            requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.moviesFragment)
-        }
-        binding.tvButton.setOnClickListener {
-            requireActivity().findNavController(R.id.myFragmentContanier2).navigate(R.id.tvFragment)
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.home -> requireActivity().findNavController(R.id.MainFragmentContainerView).navigate(R.id.homeFragment)
+                R.id.movies -> requireActivity().findNavController(R.id.MainFragmentContainerView).navigate(R.id.moviesCategoriesFragment2)
+                R.id.tv_shows -> requireActivity().findNavController(R.id.MainFragmentContainerView).navigate(R.id.tvCategorieFragment2)
+            }
+            true
         }
     }
-
-
-
-
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

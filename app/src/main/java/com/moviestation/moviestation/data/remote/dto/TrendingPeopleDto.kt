@@ -3,11 +3,9 @@ package com.moviestation.moviestation.data.remote.dto
 import com.google.gson.annotations.SerializedName
 
 
-data class TrendingPeopleResponse(
-    @SerializedName("page")
-    val page: Int,
+data class TrendingPeopleDto(
     @SerializedName("results")
-    val trendingPeople: List<People>,
+    val trendingPeople: List<People>
 )
 
 

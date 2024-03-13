@@ -1,70 +1,92 @@
 package com.moviestation.moviestation.presentation.home
 
-
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.data.remote.dto.Movies
-import com.moviestation.moviestation.data.remote.dto.People
-import com.moviestation.moviestation.data.remote.dto.Tv
+import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.domain.usecase.home.GetTrendingPeopleUseCase
 import com.moviestation.moviestation.domain.usecase.home.GetTrendingMoviesUseCase
-import com.moviestation.moviestation.domain.usecase.home.GetTrendingTvUseCase
+import com.moviestation.moviestation.domain.usecase.home.GetTrendingTvShowsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val  trendingMoviesUseCase : GetTrendingMoviesUseCase,
-    private val trendingTvUseCase : GetTrendingTvUseCase,
+    private val trendingTvShowsUseCase : GetTrendingTvShowsUseCase,
     private val trendingPeopleUseCase : GetTrendingPeopleUseCase
 ) : ViewModel() {
 
-    private val _movieList = MutableStateFlow(emptyList<Movies>())
-    val movieList: StateFlow<List<Movies>> = _movieList
-
-    private val _tvList = MutableStateFlow(emptyList<Tv>())
-    val tvList: StateFlow<List<Tv>> = _tvList
-
-
-    private val _peopleList = MutableStateFlow(emptyList<People>())
-    val peopleList: StateFlow<List<People>> = _peopleList
+    private var _state = MutableStateFlow(HomeViewState())
+    val state = _state.asStateFlow()
 
     init {
         getTrendingMovies()
-        getTrendingTv()
+        getTrendingTvShows()
         getTrendingPeople()
     }
 
     private fun getTrendingMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
-            trendingMoviesUseCase.getTrendingMovies().collect{
-                _movieList.value = it
+        trendingMoviesUseCase().onEach {
+            when (it) {
+                is Resources.Success -> {
+                    _state.value = _state.value.copy(isLoadingMovies = false)
+                    it.data?.forEach { movie ->
+                        _state.value = _state.value.copy(trendingMoviesList = _state.value.trendingMoviesList +
+                                Trending(
+                                    name = movie.name,
+                                    image = movie.poster,
+                                    voteAverage = movie.voteAverage,
+                                    overView = movie.overView
+                                ))
+                    }
+                }
+                is Resources.Error -> _state.value = _state.value.copy(isLoadingMovies = false)
+                is Resources.Loading -> _state.value = _state.value.copy(isLoadingMovies = true)
             }
-
-        }
-
+        }.launchIn(viewModelScope)
     }
-
-
-    private fun getTrendingTv() {
-        viewModelScope.launch(Dispatchers.IO) {
-         trendingTvUseCase.getTrendingTv().collect{
-             _tvList.value = it
-         }
-        }
+    private fun getTrendingTvShows () {
+        trendingTvShowsUseCase().onEach {
+            when (it) {
+                is Resources.Success -> {
+                    _state.value = _state.value.copy(isLoadingTvShows = false )
+                    it.data?.forEach { tvShow ->
+                        _state.value = _state.value.copy(trendingTvShowsList = _state.value.trendingTvShowsList +
+                                Trending(
+                                    name = tvShow.name,
+                                    image = tvShow.poster,
+                                    voteAverage = tvShow.voteAverage,
+                                    overView = tvShow.overView
+                                ))
+                    }
+                }
+                is Resources.Error -> _state.value = _state.value.copy(isLoadingTvShows = false )
+                is Resources.Loading -> _state.value = _state.value.copy(isLoadingTvShows = true )
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun getTrendingPeople() {
-        viewModelScope.launch(Dispatchers.IO) {
-          trendingPeopleUseCase.getTrendingPeople().collect{
-               _peopleList.value = it
-           }
-
-        }
+        trendingPeopleUseCase().onEach {
+            when (it) {
+                is Resources.Success -> {
+                    _state.value = _state.value.copy(isLoadingPeople = false)
+                    it.data?.forEach { person ->
+                        _state.value =  _state.value.copy(trendingPeopleList = _state.value.trendingPeopleList +
+                                Trending(
+                                    name = person.name,
+                                    image = person.poster,
+                                ))
+                    }
+                }
+                is Resources.Error -> _state.value = _state.value.copy(isLoadingPeople = false)
+                is Resources.Loading -> _state.value = _state.value.copy(isLoadingPeople = true)
+            }
+        }.launchIn(viewModelScope)
     }
 }

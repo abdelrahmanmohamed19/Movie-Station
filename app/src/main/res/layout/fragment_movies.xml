@@ -10,33 +10,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".presentation.ui.MoviesCategorieFragment"
         android:background="@color/black">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movie Categories"
-            android:fontFamily="@font/bebas_neue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_20sdp"
-            app:layout_constraintStart_toStartOf="parent"
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:indeterminateTint="@color/yellow"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/MovieRecyclerview"
+            android:id="@+id/moviesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/_28sdp"
-            android:paddingLeft="@dimen/_8sdp"
-            android:paddingRight="@dimen/_8sdp"
-            tools:listitem="@layout/categorie_item"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            android:paddingBottom="@dimen/_8sdp"
+            tools:listitem="@layout/trending_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

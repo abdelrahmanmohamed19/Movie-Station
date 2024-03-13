@@ -14,7 +14,7 @@ class DetailsFragment : Fragment() {
 
     private val args by navArgs<DetailsFragmentArgs>()
     private var _binding : FragmentDetailsBinding? = null
-    val binding get() = _binding !!
+    private val binding get() = _binding !!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
@@ -23,7 +23,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.name.text = args.title
+        binding.name.text = args.name
         binding.vote.text = args.voteAverage
         binding.overView.text = args.overView
         Glide.with(this).load("https://image.tmdb.org/t/p/w154" + args.poster).placeholder(R.drawable.logo).into(binding.poster)

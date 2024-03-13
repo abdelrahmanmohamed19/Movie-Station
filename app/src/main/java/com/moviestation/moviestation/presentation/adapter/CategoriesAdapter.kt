@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviestation.databinding.CategorieItemBinding
 import com.moviestation.moviestation.data.remote.dto.Categories
-import com.moviestation.moviestation.presentation.movies.MoviesFragmentDirections
-import com.moviestation.moviestation.presentation.tv.TvFragmentDirections
+import com.moviestation.moviestation.presentation.movies.MoviesCategoriesFragmentDirections
+import com.moviestation.moviestation.presentation.tv.TvShowCategoriesFragment
+import com.moviestation.moviestation.presentation.tv.TvShowCategoriesFragmentDirections
 
 class CategoriesAdapter(private val navController: NavController , private val check : String): ListAdapter<Categories,RecyclerView.ViewHolder>(VisitsModelDiffCallback()) {
 
@@ -42,16 +43,12 @@ class CategoriesAdapter(private val navController: NavController , private val c
             itemView.setOnClickListener {
                 when (check) {
                     "movies" -> {
-                        val action =
-                            MoviesFragmentDirections.actionMoviesFragmentToMoviesCategorieFragment(
-                                item.id.toString()
-                            )
+                        val action = MoviesCategoriesFragmentDirections.actionMoviesCategoriesFragment2ToMoviesFragment(item.id)
                         navController.navigate(action)
                     }
 
                     "tv" -> {
-                        val action =
-                            TvFragmentDirections.actionTvFragmentToTvCategorieFragment(item.id.toString())
+                        val action = TvShowCategoriesFragmentDirections.actionTvCategorieFragment2ToTvFragment(item.id)
                         navController.navigate(action)
                     }
                 }

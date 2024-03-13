@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-          <variable
-              name="viewModel"
-              type="com.moviestation.moviestation.presentation.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,18 +39,27 @@
             app:layout_constraintBottom_toBottomOf="@id/SearchTextField"
             app:layout_constraintEnd_toEndOf="@id/SearchTextField"/>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:indeterminateTint="@color/yellow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/SearchRecyclerView"
+                android:id="@+id/searchRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/searchButton"
-                android:layout_marginTop="@dimen/_16sdp"
+                app:layout_constraintTop_toBottomOf="@id/SearchTextField"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                android:paddingBottom="@dimen/_8sdp"
                 tools:listitem="@layout/trending_item" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

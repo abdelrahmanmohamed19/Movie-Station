@@ -1,4 +1,4 @@
-package com.moviestation.moviestation.presentation.movies
+package com.moviestation.moviestation.presentation.tv
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,49 +10,49 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.moviestation.databinding.FragmentMoviesBinding
+import com.example.moviestation.databinding.FragmentTvShowsBinding
 import com.moviestation.moviestation.presentation.adapter.MainAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class TvShowsFragment : Fragment() {
 
-    private var _binding : FragmentMoviesBinding? =null
-    private val binding get()= _binding !!
-    private val viewModel by viewModels<MoviesViewModel>()
-    private val args by navArgs<MoviesFragmentArgs>()
+    private var _binding : FragmentTvShowsBinding? = null
+    private val binding get() =_binding!!
+    private val viewModel by viewModels<TvViewModel>()
     private lateinit var navController: NavController
-    private val mainAdapter by lazy { MainAdapter(navController,"movie") }
-
+    private val args by navArgs<TvShowsFragmentArgs>()
+    private val mainAdapter by lazy { MainAdapter(navController,"tv") }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentMoviesBinding.inflate(layoutInflater)
+        _binding = FragmentTvShowsBinding.inflate(layoutInflater)
         navController = findNavController()
         return binding.root
     }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.moviesRecyclerView.adapter = mainAdapter
-        viewModel.getMovies(args.id)
+        binding.tvRecyclerView.adapter = mainAdapter
+        viewModel.getTvShows(args.id)
         lifecycleScope.launch {
-            viewModel.state.collect {
-                mainAdapter.submitList(it.moviesList)
+            viewModel.state.collect{
+                mainAdapter.submitList(it.tvShowsList)
                 if (it.isLoading) {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
-                        moviesRecyclerView.visibility = View.INVISIBLE
+                        tvRecyclerView.visibility = View.INVISIBLE
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.INVISIBLE
-                        moviesRecyclerView.visibility = View.VISIBLE
+                        tvRecyclerView.visibility = View.VISIBLE
                     }
                 }
             }
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

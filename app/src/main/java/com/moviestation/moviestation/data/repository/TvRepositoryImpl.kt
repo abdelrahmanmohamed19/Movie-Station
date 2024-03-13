@@ -2,35 +2,17 @@ package com.moviestation.moviestation.data.repository
 
 import com.moviestation.moviestation.domain.repository.TvRepository
 import com.moviestation.moviestation.data.remote.ApiService
-import com.moviestation.moviestation.data.remote.dto.Categories
-import com.moviestation.moviestation.data.remote.dto.Tv
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.moviestation.moviestation.data.remote.dto.CategoriesDto
+import com.moviestation.moviestation.data.remote.dto.TvDto
 import javax.inject.Inject
 
-class TvRepositoryImpl @Inject constructor (private val api : ApiService, private val apiKey : String ) :
-    TvRepository {
-
-    override suspend fun getTvCategories() : StateFlow<List<Categories>> {
-
-        val categoriesList = MutableStateFlow(emptyList<Categories>())
-
-        val response = api.getTvCategorie(apiKey)
-
-        if (response.isSuccessful){
-            val responseBody = response.body()?.categoriesList
-            categoriesList.value = responseBody !!
-        }
-        return categoriesList
+class TvRepositoryImpl @Inject constructor (private val apiService : ApiService, private val apiKey : String ) : TvRepository {
+    override suspend fun getTvCategories(): CategoriesDto {
+        return apiService.getTvCategories(apiKey)
     }
 
-    override suspend fun getTvCategorieList(id : Int) : StateFlow<List<Tv>>{
-        val categoriesList = MutableStateFlow(emptyList<Tv>())
-        val response = api.getTvCategorieList(apiKey,id)
-        if (response.isSuccessful){
-            val responseBody = response.body()?.trendingTv
-            categoriesList.value = responseBody !!
-        }
-        return categoriesList
+    override suspend fun getTvShows(id: Int): TvDto {
+        return apiService.getTvShows(apiKey, id)
     }
+
 }

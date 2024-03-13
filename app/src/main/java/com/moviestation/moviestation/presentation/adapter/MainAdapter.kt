@@ -11,9 +11,9 @@ import com.example.moviestation.R
 import com.example.moviestation.databinding.TrendingItemBinding
 import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.presentation.home.HomeFragmentDirections
-import com.moviestation.moviestation.presentation.movies.MoviesCategorieFragmentDirections
+import com.moviestation.moviestation.presentation.movies.MoviesFragmentDirections
 import com.moviestation.moviestation.presentation.search.SearchFragmentDirections
-import com.moviestation.moviestation.presentation.tv.TvCategorieFragmentDirections
+import com.moviestation.moviestation.presentation.tv.TvShowsFragmentDirections
 
 class MainAdapter (private val navController: NavController, private val name : String) : ListAdapter<Trending, RecyclerView.ViewHolder>(VisitsModelDiffCallback()) {
 
@@ -31,45 +31,48 @@ class MainAdapter (private val navController: NavController, private val name : 
         super.submitList(list)
     }
 
-    private inner class MyViewHolder( private val itemBinding : TrendingItemBinding) : RecyclerView.ViewHolder(itemBinding.root){
+    private inner class MyViewHolder( private val itemBinding : TrendingItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind (item : Trending) {
             itemBinding.movieName.text = item.name
             Glide.with(itemView).load("https://image.tmdb.org/t/p/w154" + item.image).placeholder(R.drawable.logo).into(itemBinding.poster)
-            itemView.setOnClickListener {
 
+            itemView.setOnClickListener {
                 when (name) {
                     "home" -> {
                         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
-                            title = item.name,
+                            name = item.name,
                             poster = item.image!!,
                             voteAverage = item.voteAverage.toString(),
                             overView = item.overView
                         )
                         navController.navigate(action)
                     }
+
                     "search" -> {
                         val action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
-                            title = item.name,
+                            name = item.name,
                             poster = item.image!!,
                             voteAverage = item.voteAverage.toString(),
                             overView = item.overView
                         )
                         navController.navigate(action)
                     }
+
                     "movie" -> {
                         val action =
-                            MoviesCategorieFragmentDirections.actionMoviesCategorieFragmentToDetailsFragment(
-                                title = item.name,
+                            MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                                name = item.name,
                                 poster = item.image!!,
                                 voteAverage = item.voteAverage.toString(),
                                 overView = item.overView
                             )
                         navController.navigate(action)
                     }
+
                     "tv" -> {
                         val action =
-                            TvCategorieFragmentDirections.actionTvCategorieFragmentToDetailsFragment(
-                                title = item.name,
+                            TvShowsFragmentDirections.actionTvFragmentToDetailsFragment(
+                                name = item.name,
                                 poster = item.image!!,
                                 voteAverage = item.voteAverage.toString(),
                                 overView = item.overView

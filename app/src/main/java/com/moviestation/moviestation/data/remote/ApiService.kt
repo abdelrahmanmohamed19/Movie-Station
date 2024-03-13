@@ -1,37 +1,37 @@
 package com.moviestation.moviestation.data.remote
 
-import com.moviestation.moviestation.data.remote.dto.CategoriesResponse
-import com.moviestation.moviestation.data.remote.dto.TrendingMoviesResponse
-import com.moviestation.moviestation.data.remote.dto.TrendingPeopleResponse
-import com.moviestation.moviestation.data.remote.dto.TrendingTvResponse
-import retrofit2.Response
+import com.moviestation.moviestation.data.remote.dto.CategoriesDto
+import com.moviestation.moviestation.data.remote.dto.SearchedItemDto
+import com.moviestation.moviestation.data.remote.dto.MoviesDto
+import com.moviestation.moviestation.data.remote.dto.TrendingPeopleDto
+import com.moviestation.moviestation.data.remote.dto.TvDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("trending/movie/week")
-    suspend fun getTrendingMovies(@Query("api_key") ApiKey: String): Response<TrendingMoviesResponse>
+    suspend fun getTrendingMovies(@Query("api_key") apiKey: String): MoviesDto
 
     @GET("trending/tv/week")
-    suspend fun getTrendingTv(@Query("api_key") ApiKey: String): Response<TrendingTvResponse>
+    suspend fun getTrendingTvShows(@Query("api_key") apiKey: String): TvDto
 
     @GET("trending/person/week")
-    suspend fun getTrendingPeople(@Query("api_key") ApiKey: String): Response<TrendingPeopleResponse>
+    suspend fun getTrendingPeople(@Query("api_key") apiKey: String): TrendingPeopleDto
 
     @GET("search/collection")
-    suspend fun getSearchedItem(@Query("api_key") ApiKey: String, @Query("query") SearchedItem : String) : Response<TrendingTvResponse>
+    suspend fun getSearchedItem(@Query("api_key") apiKey: String, @Query("query") searchedItem : String) : SearchedItemDto
 
     @GET("genre/movie/list")
-    suspend fun getMoviesCategorie(@Query("api_key") ApiKey: String): Response<CategoriesResponse>
+    suspend fun getMovieCategories(@Query("api_key") apiKey: String): CategoriesDto
 
     @GET("genre/tv/list")
-    suspend fun getTvCategorie(@Query("api_key") ApiKey: String): Response<CategoriesResponse>
+    suspend fun getTvCategories(@Query("api_key") apiKey: String): CategoriesDto
 
     @GET("discover/movie")
-    suspend fun getMovieCategorieList(@Query("api_key") ApiKey: String,@Query ("with_genres") categorieNumber:Int): Response<TrendingMoviesResponse>
+    suspend fun getMovies(@Query("api_key") apiKey: String, @Query ("with_genres") id: Int): MoviesDto
 
     @GET("discover/tv")
-    suspend fun getTvCategorieList(@Query("api_key") ApiKey: String,@Query ("with_genres") categorieNumber:Int): Response<TrendingTvResponse>
+    suspend fun getTvShows(@Query("api_key") apiKey: String, @Query ("with_genres") id: Int): TvDto
 
 }

@@ -1,12 +1,11 @@
 package com.moviestation.moviestation.domain.repository
 
-import com.moviestation.moviestation.data.remote.dto.Categories
-import com.moviestation.moviestation.data.remote.dto.Tv
-import kotlinx.coroutines.flow.StateFlow
+import com.moviestation.moviestation.data.remote.dto.CategoriesDto
+import com.moviestation.moviestation.data.remote.dto.TvDto
 
 interface TvRepository {
 
-    suspend fun getTvCategories() : StateFlow<List<Categories>>
+    suspend fun getTvCategories() : CategoriesDto
 
-    suspend fun getTvCategorieList(id : Int) : StateFlow<List<Tv>>
+    suspend fun getTvShows(id : Int) : TvDto
 }

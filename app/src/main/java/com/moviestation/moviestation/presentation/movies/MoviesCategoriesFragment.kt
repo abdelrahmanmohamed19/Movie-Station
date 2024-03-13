@@ -9,46 +9,46 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.moviestation.databinding.FragmentMoviesBinding
-import com.moviestation.moviestation.presentation.adapter.MainAdapter
+import com.example.moviestation.databinding.FragmentMoviesCategoriesBinding
+import com.moviestation.moviestation.presentation.adapter.CategoriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class MoviesCategoriesFragment : Fragment() {
 
-    private var _binding : FragmentMoviesBinding? =null
-    private val binding get()= _binding !!
+    private var _binding : FragmentMoviesCategoriesBinding? = null
+    private val binding get() =_binding !!
     private val viewModel by viewModels<MoviesViewModel>()
-    private val args by navArgs<MoviesFragmentArgs>()
-    private lateinit var navController: NavController
-    private val mainAdapter by lazy { MainAdapter(navController,"movie") }
+    private lateinit var navController : NavController
+    private val categoriesAdapter by lazy { CategoriesAdapter(navController,"movies") }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentMoviesBinding.inflate(layoutInflater)
+        _binding = FragmentMoviesCategoriesBinding.inflate(layoutInflater)
         navController = findNavController()
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.moviesRecyclerView.adapter = mainAdapter
-        viewModel.getMovies(args.id)
+        binding.moviesRecyclerview.adapter = categoriesAdapter
+        viewModel.getMoviesCategoriesList()
         lifecycleScope.launch {
-            viewModel.state.collect {
-                mainAdapter.submitList(it.moviesList)
+            viewModel.state.collect{
+                categoriesAdapter.submitList(it.moviesCategoriesList)
                 if (it.isLoading) {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
-                        moviesRecyclerView.visibility = View.INVISIBLE
+                        moviesRecyclerview.visibility = View.INVISIBLE
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.INVISIBLE
-                        moviesRecyclerView.visibility = View.VISIBLE
+                        moviesRecyclerview.visibility = View.VISIBLE
                     }
                 }
+
             }
         }
     }

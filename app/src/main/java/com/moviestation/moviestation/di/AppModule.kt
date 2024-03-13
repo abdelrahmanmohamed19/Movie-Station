@@ -7,7 +7,7 @@ import com.moviestation.moviestation.domain.repository.TvRepository
 import com.moviestation.moviestation.data.remote.ApiService
 import com.moviestation.moviestation.data.repository.SearchRepositoryImpl
 import com.moviestation.moviestation.data.repository.TvRepositoryImpl
-import com.moviestation.moviestation.data.remote.dto.Constants
+import com.moviestation.moviestation.comman.Constants
 import com.moviestation.moviestation.data.repository.HomeRepositoryImpl
 import com.moviestation.moviestation.data.repository.MoviesRepositoryImpl
 import dagger.Module
@@ -23,12 +23,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-
     @Provides
     @Singleton
-    fun provideApiKey(): String {
-        return Constants.ApiKey
-    }
+    fun provideApiKey(): String = Constants.ApiKey
 
     @Provides
     @Singleton

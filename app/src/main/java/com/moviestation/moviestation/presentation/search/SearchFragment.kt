@@ -11,9 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.moviestation.databinding.FragmentSearchBinding
-import com.moviestation.moviestation.data.remote.dto.Tv
-import com.moviestation.moviestation.presentation.adapter.MainAdapter
 import com.moviestation.moviestation.domain.model.Trending
+import com.moviestation.moviestation.presentation.adapter.MainAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,6 +25,8 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModels<SearchViewModel>()
     private lateinit var navController: NavController
     private val mainAdapter by lazy { MainAdapter(navController,"search") }
+    val list = listOf(Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""))
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -35,31 +36,32 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.SearchTextField.addTextChangedListener{text ->
-                lifecycleScope.launch {
-                    delay(1000)
-                    viewModel.getSearchedItem(text.toString())
-                    viewModel.searchedItem.collect{
-                        mainAdapter.submitList(mapSearchItemToTrending(it))
-                        binding.SearchRecyclerView.adapter=mainAdapter
+        binding.searchRecyclerView.adapter = mainAdapter
+        binding.SearchTextField.addTextChangedListener { text ->
+            lifecycleScope.launch {
+                delay(500)
+                viewModel.getSearchedItem(text.toString())
+                viewModel.isLoading.collect{
+                    if (it) {
+                        binding.apply {
+                            progressBar.visibility = View.VISIBLE
+                            searchRecyclerView.visibility = View.INVISIBLE
+                        }
+                    } else {
+                        binding.apply {
+                            progressBar.visibility = View.INVISIBLE
+                            searchRecyclerView.visibility = View.VISIBLE
+                        }
+                        viewModel.searchedItemList.collect {list ->
+                            mainAdapter.submitList(list)
+                        }
                     }
                 }
             }
-
-            }
-
-    private fun mapSearchItemToTrending(searchList : List<Tv>) : List<Trending>{
-        val newList = mutableListOf<Trending>()
-        searchList.forEach{
-            newList.add(Trending(it.name,it.poster,it.voteAverage,it.overView))
         }
-        return newList
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

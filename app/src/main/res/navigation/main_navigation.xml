@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation2"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.moviestation.moviestation.presentation.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tvCategorieFragment2"
+            app:destination="@id/tvCategorieFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_moviesCategoriesFragment2"
+            app:destination="@id/moviesCategoriesFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvCategorieFragment2"
+        android:name="com.moviestation.moviestation.presentation.tv.TvShowCategoriesFragment"
+        android:label="TvCategorieFragment" >
+        <action
+            android:id="@+id/action_tvCategorieFragment2_to_tvFragment"
+            app:destination="@id/tvFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesCategoriesFragment2"
+        android:name="com.moviestation.moviestation.presentation.movies.MoviesCategoriesFragment"
+        android:label="MoviesCategoriesFragment" >
+        <action
+            android:id="@+id/action_moviesCategoriesFragment2_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.moviestation.moviestation.presentation.movies.MoviesFragment"
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.moviestation.moviestation.presentation.tv.TvShowsFragment"
+        android:label="TvFragment" >
+        <action
+            android:id="@+id/action_tvFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.moviestation.moviestation.presentation.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.moviestation.moviestation.presentation.ui.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument android:name="name"
+            app:argType="string" />
+        <argument android:name="poster"
+            app:argType="string" />
+        <argument
+            android:name="voteAverage"
+            app:argType="string" />
+        <argument
+            android:name="overView"
+            app:argType="string" />
+    </fragment>
+</navigation>
