@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.moviestation.databinding.FragmentSearchBinding
-import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.presentation.adapter.MainAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -25,8 +24,6 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModels<SearchViewModel>()
     private lateinit var navController: NavController
     private val mainAdapter by lazy { MainAdapter(navController,"search") }
-    val list = listOf(Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""),Trending("","",0.0,""))
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -52,7 +49,7 @@ class SearchFragment : Fragment() {
                             progressBar.visibility = View.INVISIBLE
                             searchRecyclerView.visibility = View.VISIBLE
                         }
-                        viewModel.searchedItemList.collect {list ->
+                        viewModel.searchedItemList.collect { list ->
                             mainAdapter.submitList(list)
                         }
                     }
