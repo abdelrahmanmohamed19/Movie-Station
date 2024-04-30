@@ -2,7 +2,7 @@ package com.moviestation.moviestation.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.domain.usecase.home.GetTrendingPeopleUseCase
 import com.moviestation.moviestation.domain.usecase.home.GetTrendingMoviesUseCase
@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val trendingPeopleUseCase : GetTrendingPeopleUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow(HomeViewState())
+    private var _state = MutableStateFlow(HomeUIState())
     val state = _state.asStateFlow()
 
     init {
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
     private fun getTrendingMovies() {
         trendingMoviesUseCase().onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _state.value = _state.value.copy(isLoadingMovies = false)
                     it.data?.forEach { movie ->
                         _state.value = _state.value.copy(trendingMoviesList = _state.value.trendingMoviesList +
@@ -45,15 +45,15 @@ class HomeViewModel @Inject constructor(
                                 ))
                     }
                 }
-                is Resources.Error -> _state.value = _state.value.copy(isLoadingMovies = false)
-                is Resources.Loading -> _state.value = _state.value.copy(isLoadingMovies = true)
+                is ApiResponse.Error -> _state.value = _state.value.copy(isLoadingMovies = false)
+                is ApiResponse.Loading -> _state.value = _state.value.copy(isLoadingMovies = true)
             }
         }.launchIn(viewModelScope)
     }
     private fun getTrendingTvShows () {
         trendingTvShowsUseCase().onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _state.value = _state.value.copy(isLoadingTvShows = false )
                     it.data?.forEach { tvShow ->
                         _state.value = _state.value.copy(trendingTvShowsList = _state.value.trendingTvShowsList +
@@ -65,8 +65,8 @@ class HomeViewModel @Inject constructor(
                                 ))
                     }
                 }
-                is Resources.Error -> _state.value = _state.value.copy(isLoadingTvShows = false )
-                is Resources.Loading -> _state.value = _state.value.copy(isLoadingTvShows = true )
+                is ApiResponse.Error -> _state.value = _state.value.copy(isLoadingTvShows = false )
+                is ApiResponse.Loading -> _state.value = _state.value.copy(isLoadingTvShows = true )
             }
         }.launchIn(viewModelScope)
     }
@@ -74,7 +74,7 @@ class HomeViewModel @Inject constructor(
     private fun getTrendingPeople() {
         trendingPeopleUseCase().onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _state.value = _state.value.copy(isLoadingPeople = false)
                     it.data?.forEach { person ->
                         _state.value =  _state.value.copy(trendingPeopleList = _state.value.trendingPeopleList +
@@ -84,8 +84,8 @@ class HomeViewModel @Inject constructor(
                                 ))
                     }
                 }
-                is Resources.Error -> _state.value = _state.value.copy(isLoadingPeople = false)
-                is Resources.Loading -> _state.value = _state.value.copy(isLoadingPeople = true)
+                is ApiResponse.Error -> _state.value = _state.value.copy(isLoadingPeople = false)
+                is ApiResponse.Loading -> _state.value = _state.value.copy(isLoadingPeople = true)
             }
         }.launchIn(viewModelScope)
     }

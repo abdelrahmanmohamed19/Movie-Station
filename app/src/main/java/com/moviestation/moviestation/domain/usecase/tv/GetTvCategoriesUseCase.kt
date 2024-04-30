@@ -1,6 +1,6 @@
 package com.moviestation.moviestation.domain.usecase.tv
 
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.domain.repository.TvRepository
 import com.moviestation.moviestation.data.remote.dto.Categories
 import kotlinx.coroutines.flow.Flow
@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 class GetTvCategoriesUseCase @Inject constructor(private val tvRepository : TvRepository){
 
-    operator fun invoke () : Flow<Resources<List<Categories>>> = flow  {
+    operator fun invoke () : Flow<ApiResponse<List<Categories>>> = flow  {
         try {
-            emit(Resources.Loading())
+            emit(ApiResponse.Loading())
             val data = tvRepository.getTvCategories().categoriesList
-            emit(Resources.Success(data))
+            emit(ApiResponse.Success(data))
         } catch (e: HttpException) {
-            emit(Resources.Error("an error occurred, please try again later"))
+            emit(ApiResponse.Error("an error occurred, please try again later"))
         } catch (e: IOException) {
-            emit(Resources.Error("no internet connection"))
+            emit(ApiResponse.Error("no internet connection"))
         }
     }
 }

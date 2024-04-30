@@ -2,7 +2,7 @@ package com.moviestation.moviestation.presentation.home
 
 import com.moviestation.moviestation.domain.model.Trending
 
-data class HomeViewState(
+data class HomeUIState(
   var trendingMoviesList: List<Trending> = emptyList(),
   var trendingTvShowsList: List<Trending> = emptyList(),
   var trendingPeopleList: List<Trending> = emptyList(),

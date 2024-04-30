@@ -7,7 +7,10 @@ import com.moviestation.moviestation.data.remote.dto.TvDto
 import com.moviestation.moviestation.domain.repository.HomeRepository
 import javax.inject.Inject
 
-class HomeRepositoryImpl @Inject constructor(private val apiService: ApiService, private val apiKey: String) : HomeRepository {
+class HomeRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val apiKey: String
+) : HomeRepository {
 
     override suspend fun getTrendingMovies(): MoviesDto {
         return apiService.getTrendingMovies(apiKey)

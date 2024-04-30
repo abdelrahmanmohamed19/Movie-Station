@@ -25,7 +25,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiKey(): String = Constants.ApiKey
+    fun provideApiKey(): String {
+        return Constants.ApiKey
+    }
 
     @Provides
     @Singleton

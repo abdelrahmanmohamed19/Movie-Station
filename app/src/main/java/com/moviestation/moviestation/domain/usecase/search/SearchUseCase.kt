@@ -1,6 +1,6 @@
 package com.moviestation.moviestation.domain.usecase.search
 
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.data.remote.dto.Item
 import com.moviestation.moviestation.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 class SearchUseCase @Inject constructor(private val searchRepository: SearchRepository) {
 
-    operator fun invoke(searchedItem: String): Flow<Resources<List<Item>>> = flow {
+    operator fun invoke(searchedItem: String): Flow<ApiResponse<List<Item>>> = flow {
         try {
-            emit(Resources.Loading())
+            emit(ApiResponse.Loading())
             val data = searchRepository.getSearchedItem(searchedItem).results
-            emit(Resources.Success(data))
+            emit(ApiResponse.Success(data))
         } catch (e: HttpException) {
-            emit(Resources.Error("an error occurred, please try again later"))
+            emit(ApiResponse.Error("an error occurred, please try again later"))
         } catch (e: IOException) {
-            emit(Resources.Error("no internet connection"))
+            emit(ApiResponse.Error("no internet connection"))
         }
     }
 }

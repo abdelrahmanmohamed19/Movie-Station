@@ -1,6 +1,6 @@
 package com.moviestation.moviestation.domain.usecase.home
 
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.data.remote.dto.People
 import com.moviestation.moviestation.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 class GetTrendingPeopleUseCase @Inject constructor(private val homeRepository: HomeRepository) {
 
-    operator fun invoke () : Flow<Resources<List<People>>> = flow {
+    operator fun invoke () : Flow<ApiResponse<List<People>>> = flow {
         try {
-            emit(Resources.Loading())
+            emit(ApiResponse.Loading())
             val data = homeRepository.getTrendingPeople().trendingPeople
-            emit(Resources.Success(data))
+            emit(ApiResponse.Success(data))
         } catch (e: HttpException) {
-            emit(Resources.Error("an error occurred, please try again later"))
+            emit(ApiResponse.Error("an error occurred, please try again later"))
         } catch (e: IOException) {
-            emit(Resources.Error("no internet connection"))
+            emit(ApiResponse.Error("no internet connection"))
         }
     }
 }

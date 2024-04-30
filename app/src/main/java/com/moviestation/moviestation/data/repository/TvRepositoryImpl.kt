@@ -6,7 +6,11 @@ import com.moviestation.moviestation.data.remote.dto.CategoriesDto
 import com.moviestation.moviestation.data.remote.dto.TvDto
 import javax.inject.Inject
 
-class TvRepositoryImpl @Inject constructor (private val apiService : ApiService, private val apiKey : String ) : TvRepository {
+class TvRepositoryImpl @Inject constructor (
+    private val apiService : ApiService,
+    private val apiKey : String
+) : TvRepository {
+
     override suspend fun getTvCategories(): CategoriesDto {
         return apiService.getTvCategories(apiKey)
     }

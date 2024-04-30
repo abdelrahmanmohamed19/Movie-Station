@@ -2,7 +2,7 @@ package com.moviestation.moviestation.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class SearchViewModel @Inject constructor (private val searchUseCase: SearchUseC
     fun getSearchedItem(item: String) {
         searchUseCase(item).onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _isLoading.value = false
                     _searchedItemList.value = it.data?.map { item ->
                         Trending(
@@ -34,8 +34,8 @@ class SearchViewModel @Inject constructor (private val searchUseCase: SearchUseC
                         )
                     } ?: emptyList()
                 }
-                is Resources.Error -> _isLoading.value = false
-                is Resources.Loading -> _isLoading.value = true
+                is ApiResponse.Error -> _isLoading.value = false
+                is ApiResponse.Loading -> _isLoading.value = true
             }
         }.launchIn(viewModelScope)
     }

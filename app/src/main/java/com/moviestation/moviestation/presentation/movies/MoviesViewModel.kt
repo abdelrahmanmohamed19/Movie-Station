@@ -2,8 +2,7 @@ package com.moviestation.moviestation.presentation.movies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.comman.Resources
-import com.moviestation.moviestation.data.remote.dto.Movie
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.domain.usecase.movies.GetMovieCategoriesUseCase
 import com.moviestation.moviestation.domain.usecase.movies.GetMoviesUseCase
@@ -22,18 +21,18 @@ class MoviesViewModel @Inject constructor (
     private val getMoviesUseCase: GetMoviesUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(MoviesViewState())
+    private val _state = MutableStateFlow(MoviesUIState())
     val state = _state.asStateFlow()
 
     fun getMoviesCategoriesList() {
         viewModelScope.launch(Dispatchers.IO) {
             getMovieCategoriesUseCase().onEach {
                 when(it) {
-                    is Resources.Success -> {
+                    is ApiResponse.Success -> {
                         _state.value = _state.value.copy(isLoading = false, moviesCategoriesList = it.data !!)
                     }
-                    is Resources.Error -> _state.value = _state.value.copy(isLoading = false)
-                    is Resources.Loading -> _state.value = _state.value.copy(isLoading = true)
+                    is ApiResponse.Error -> _state.value = _state.value.copy(isLoading = false)
+                    is ApiResponse.Loading -> _state.value = _state.value.copy(isLoading = true)
 
                 }
             }.launchIn(viewModelScope)
@@ -44,7 +43,7 @@ class MoviesViewModel @Inject constructor (
             _state.value.moviesList = emptyList()
             getMoviesUseCase(id).onEach {
                 when(it) {
-                    is Resources.Success -> {
+                    is ApiResponse.Success -> {
                         _state.value = _state.value.copy(isLoading = false)
                         _state.value = _state.value.copy(moviesList = it.data!!.map { movie ->
                             Trending(
@@ -54,8 +53,8 @@ class MoviesViewModel @Inject constructor (
                                 voteAverage = movie.voteAverage)
                         } )
                     }
-                    is Resources.Error -> _state.value = _state.value.copy(isLoading = false)
-                    is Resources.Loading -> _state.value = _state.value.copy(isLoading = true)
+                    is ApiResponse.Error -> _state.value = _state.value.copy(isLoading = false)
+                    is ApiResponse.Loading -> _state.value = _state.value.copy(isLoading = true)
                 }
             }.launchIn(viewModelScope)
         }

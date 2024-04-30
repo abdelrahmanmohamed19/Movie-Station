@@ -2,7 +2,7 @@ package com.moviestation.moviestation.presentation.tv
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moviestation.moviestation.comman.Resources
+import com.moviestation.moviestation.comman.ApiResponse
 import com.moviestation.moviestation.domain.model.Trending
 import com.moviestation.moviestation.domain.usecase.tv.GetTvShowsUseCase
 import com.moviestation.moviestation.domain.usecase.tv.GetTvCategoriesUseCase
@@ -19,18 +19,18 @@ class TvViewModel @Inject constructor (
     private val getTvShowsUseCase: GetTvShowsUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(TvShowsState())
+    private val _state = MutableStateFlow(TvUIState())
     val state = _state.asStateFlow()
 
 
     fun getTvShowCategories() {
         getTvCategoriesUseCase().onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _state.value = _state.value.copy(isLoading = false , tvShowCategoriesList = it.data !!)
                 }
-                is Resources.Error -> _state.value = _state.value.copy(isLoading = false)
-                is Resources.Loading -> _state.value = _state.value.copy(isLoading = true)
+                is ApiResponse.Error -> _state.value = _state.value.copy(isLoading = false)
+                is ApiResponse.Loading -> _state.value = _state.value.copy(isLoading = true)
             }
         }.launchIn(viewModelScope)
     }
@@ -39,7 +39,7 @@ class TvViewModel @Inject constructor (
         _state.value.tvShowsList = emptyList()
         getTvShowsUseCase(id).onEach {
             when (it) {
-                is Resources.Success -> {
+                is ApiResponse.Success -> {
                     _state.value = _state.value.copy(isLoading = false)
                     _state.value = _state.value.copy(tvShowsList = it.data!!.map {tvShow ->
                         Trending (
@@ -51,8 +51,8 @@ class TvViewModel @Inject constructor (
                     })
                 }
 
-                is Resources.Error -> _state.value = _state.value.copy(isLoading = false)
-                is Resources.Loading -> _state.value = _state.value.copy(isLoading = true)
+                is ApiResponse.Error -> _state.value = _state.value.copy(isLoading = false)
+                is ApiResponse.Loading -> _state.value = _state.value.copy(isLoading = true)
             }
         }.launchIn(viewModelScope)
     }
