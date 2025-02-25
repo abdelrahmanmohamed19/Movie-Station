@@ -24,16 +24,17 @@ Movie Station is an app for presenting movies and TV shows, including categoriza
 
 ## $\color{#16acea}{💻 Technologies}$
 
-📚 <b>Programming Language:</b> $\color{#16acea}{Kotlin}$
+📚 <b>Programming Language:</b> $\color{#0D1117}{Kotlin}$
 <br>
-📚 <b>Architecture:</b> $\color{#16acea}{Clean Architecture, MVVM}$ 
+📚 <b>Architecture:</b> $\color{#0D1117}{Clean Architecture, MVVM}$ 
 <br>
-📚 <b>UI & Design:</b> $\color{#16acea}{XML}$
-📚 <b>Dependency Injection:</b> $\color{#16acea}{Dagger-Hilt}$   
-📚 <b>Asynchronous & Reactive Programming:</b> $\color{#16acea}{Coroutines, Flows}$
+📚 <b>UI & Design:</b> $\color{#0D1117}{XML}$
 <br>
-📚 <b>Networking:</b> $\color{#16acea}{Retrofit, Rest APIs}$    
-📚 <b>Data Storage & Persistence:</b> $\color{#16acea}{Shared Preferences}$    
+📚 <b>Dependency Injection:</b> $\color{#0D1117}{Dagger-Hilt}$   
+📚 <b>Asynchronous & Reactive Programming:</b> $\color{#0D1117}{Coroutines, Flows}$
+<br>
+📚 <b>Networking:</b> $\color{#0D1117}{Retrofit, Rest APIs}$    
+📚 <b>Data Storage & Persistence:</b> $\color{#0D1117}{Shared Preferences}$    
 
 ## $\color{#4203c9}{📷 Screenshots}$
 
