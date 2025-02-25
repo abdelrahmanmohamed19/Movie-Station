@@ -24,7 +24,7 @@ Movie Station is an app for presenting movies and TV shows, including categoriza
 
 ## $\color{#16acea}{💻 Technologies}$
 
-📚 <b>Programming Language:</b> <span style="color:#4CAF50;">Kotlin</span>
+📚 <b>Programming Language:</b> <span style="color:#16acea;">Kotlin</span>
 <br>
 📚 <b>Architecture:</b> Clean Architecture, MVVM
 <br>
